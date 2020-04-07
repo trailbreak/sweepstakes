@@ -2,13 +2,7 @@ const lineReader = require('line-reader'),
       Promise = require('bluebird'),
 	  Prando = require('prando');
 
-let likes = []
-let follows = []
-let retweets = []
-let delegators = []
-
 var eachLine = Promise.promisify(lineReader.eachLine);
-
 eachLine('./entries/likes', function(line) {
 	appendEntry(line, 1)
 }).then(function() {
@@ -41,7 +35,6 @@ function appendEntry(entry, weight) {
 	}
 }
 
-var loadCount = 0
 function pickWinner() {
 	d = new Date()
 	ts = d.getTime()
