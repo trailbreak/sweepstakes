@@ -1,0 +1,16 @@
+{
+  "name": "1up-sweepstakes",
+  "version": "1.0.0",
+  "description": "Sweepstakes Script for 1UP Cardano Stake Pool",
+  "main": "selector.js",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "line-reader": "^0.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
