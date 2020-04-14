@@ -2,28 +2,39 @@ const lineReader = require('line-reader'),
       Promise = require('bluebird'),
 	  Prando = require('prando');
 
-var eachLine = Promise.promisify(lineReader.eachLine);
-eachLine('./entries/likes', function(line) {
-	appendEntry(line, 1)
-}).then(function() {
-	console.log("Loaded likes")
- 	eachLine('./entries/follows', function(line) {
- 		appendEntry(line, 1)
- 	}).then(function() {
-		console.log("Loaded follows")
- 		eachLine('./entries/retweets', function(line) {
+var now = new Date();
+var drawingTime = Date.parse('04/14/2020 20:00:00 GMT');
+var waitTime = drawingTime - now.getTime();
+
+console.log("Pausing Until Start Time", drawingTime);
+console.log("Waiting " + waitTime/1000 + "seconds");
+console.log("Waiting " + waitTime + "ms");
+setTimeout(sweepstakes, waitTime)
+
+function sweepstakes() {
+	var eachLine = Promise.promisify(lineReader.eachLine);
+	eachLine('./entries/likes', function(line) {
+		appendEntry(line, 1)
+	}).then(function() {
+		console.log("Loaded likes")
+		eachLine('./entries/follows', function(line) {
 			appendEntry(line, 1)
 		}).then(function() {
-			console.log("Loaded retweets")
-			eachLine('./entries/delegators', function(line) {
-				appendEntry(line, 3)
+			console.log("Loaded follows")
+			eachLine('./entries/retweets', function(line) {
+				appendEntry(line, 1)
 			}).then(function() {
-				console.log("Loaded delegators")
-				pickWinner();
+				console.log("Loaded retweets")
+				eachLine('./entries/delegators', function(line) {
+					appendEntry(line, 3)
+				}).then(function() {
+					console.log("Loaded delegators")
+					pickWinner();
+				});
 			});
 		});
 	});
-});
+}
 
 let entries = []
 function appendEntry(entry, weight) {
